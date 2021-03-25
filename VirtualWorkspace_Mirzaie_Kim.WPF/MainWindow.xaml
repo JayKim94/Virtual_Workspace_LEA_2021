@@ -1,0 +1,77 @@
+﻿<Window x:Class="VirtualWorkspace_Mirzaie_Kim.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF"
+        xmlns:controls="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls"
+        xmlns:subcontrols="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols"
+        xmlns:state="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.State"
+        mc:Ignorable="d"
+        WindowState="Normal"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        Title="Virtual Workspace" Height="750" Width="950">
+    <WindowChrome.WindowChrome>
+            <WindowChrome 
+                CaptionHeight="32"
+                ResizeBorderThickness="0" />
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Border
+            BorderThickness="0"
+            CornerRadius="10"
+            Background="{Binding Navigator.BackgroundBrush, 
+            FallbackValue={StaticResource PrimaryBlackBrush}}"
+            Margin="10">
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="15"
+                    ShadowDepth="3"
+                    Opacity=".55"
+                    Direction="260"
+                    />
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid
+                    Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Margin="10 7">
+                        <subcontrols:IconActionButton
+                            WindowChrome.IsHitTestVisibleInChrome="True"
+                            IconSource="/Images/minimize.png"
+                            IconSize="12"
+                            Margin="5" Cursor="Hand"
+                            />
+                        <subcontrols:IconActionButton
+                            WindowChrome.IsHitTestVisibleInChrome="True"
+                            IconSource="/Images/letter-x.png"
+                            IconSize="12"
+                            ClickCommand="{Binding CloseApplicationCommand}"
+                            Margin="5" Cursor="Hand"
+                            />
+                    </StackPanel>
+                </Grid>
+
+                <!-- Display the views -->
+                <ContentControl
+                    Grid.Row="1"
+                    Content="{Binding Navigator.CurrentViewModel}"
+                    Margin="20 0 20 50"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols">
+    <!-- Interactable Item (Workspace Item) -->
+    <ControlTemplate x:Key="InteractableItemTemplate">
+        <ControlTemplate.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryBlackBrush}" />
+                <Setter Property="Padding" Value="0 5" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="TextAlignment" Value="Center" />
+            </Style>
+        </ControlTemplate.Resources>
+        <StackPanel
+            Tag="{Binding ItemId, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Width="80"
+            Height="60"
+            Margin="0 10 0 0"
+            HorizontalAlignment="Center">
+            <Image 
+                Source="{Binding IconSource, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue='/Images/document.png'}"
+                Width="{Binding IconWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                RenderOptions.BitmapScalingMode="HighQuality"
+                Margin="0 0 0 5"/>
+            <TextBlock 
+                Text="{Binding ItemName, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="WrapWithOverflow"
+                TextTrimming="CharacterEllipsis"
+                />
+        </StackPanel>
+    </ControlTemplate>
+    <Style x:Key="InteractableItemStyle" TargetType="{x:Type local:InteractableItem}">
+        <Setter Property="Template" Value="{StaticResource InteractableItemTemplate}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style TargetType="{x:Type local:InteractableItem}" BasedOn="{StaticResource InteractableItemStyle}" />
+    
+
+</ResourceDictionary>
