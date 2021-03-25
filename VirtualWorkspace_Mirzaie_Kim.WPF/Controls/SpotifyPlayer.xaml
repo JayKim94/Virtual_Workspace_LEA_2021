@@ -1,0 +1,249 @@
+﻿<UserControl x:Class="VirtualWorkspace_Mirzaie_Kim.WPF.Controls.SpotifyPlayer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Converters"
+             xmlns:local="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:BoolToAuthStringConverter x:Key="BoolToAuthStringConverter" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+        <Style x:Key="SpotifyControlButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Opacity" Value=".65" />
+            <Setter Property="Cursor" Value="Hand" />
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                To="1"
+                                Duration="0:0:0.1"
+                                Storyboard.TargetProperty="Opacity"
+                                />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                To=".65"
+                                Duration="0:0:0.1"
+                                Storyboard.TargetProperty="Opacity"
+                                />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PlayButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SpotifyControlButtonStyle}">
+            <Setter Property="Visibility" Value="Visible" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Image Source="/Images/play-button.png"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Margin="15 0"
+                                   Width="36"
+                                   />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding SpotifyAuthState.PlayerInfo.IsPlaying}"
+                    Value="true">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PauseButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SpotifyControlButtonStyle}">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Image Source="/Images/pause-button.png"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Margin="15 0"
+                                   Width="36"
+                                   />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding SpotifyAuthState.PlayerInfo.IsPlaying}"
+                    Value="true">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RewindButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SpotifyControlButtonStyle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Image Source="/Images/rewind-button.png"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Margin="20 0"
+                                   Width="24"
+                                   />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ForwardButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SpotifyControlButtonStyle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Image Source="/Images/fast-forward.png"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Margin="20 0"
+                                   Width="24"
+                                   />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid
+        Height="45"
+        Margin="10 20 10 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <Grid
+            Grid.Column="0">
+            <StackPanel
+                Margin="10 0 0 0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Text="{Binding SpotifyAuthState.TrackInfo.Item.Name, FallbackValue='Spotify nicht verbunden'}"
+                    TextAlignment="Left"
+                    Foreground="{StaticResource PrimaryBlackBrush}"
+                    FontSize="16"
+                    Margin="0 0 0 3"
+                    />
+                <TextBlock
+                    Text="{Binding SpotifyAuthState.PlayerInfo.Device.Name,
+                    FallbackValue='bitte Authentifizieren'}"
+                    TextAlignment="Left"
+                    Foreground="{StaticResource PrimaryBlackBrush}"
+                    Opacity=".75"
+                    FontSize="12"
+                    />
+            </StackPanel>
+        </Grid>
+        
+        <Grid
+            Grid.Column="1">
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Button 
+                    Command="{Binding PreviousSpotifyCommand}"
+                    Style="{StaticResource RewindButtonStyle}"
+                    />
+                <Button 
+                    x:Name="btnPlay"
+                    Style="{StaticResource PlayButtonStyle}"
+                    Click="OnPlay_Clicked"
+                    Command="{Binding PlaySpotifyCommand}"
+                    />
+                <Button 
+                    x:Name="btnPause"
+                    Style="{StaticResource PauseButtonStyle}"
+                    Command="{Binding PauseSpotifyCommand}"
+                    Click="OnPause_Clicked" Cursor="Hand"
+                    />
+                <Button 
+                    Command="{Binding NextSpotifyCommand}"
+                    Style="{StaticResource ForwardButtonStyle}"
+                    />
+                <StackPanel.Style>
+                    <Style TargetType="{x:Type StackPanel}">
+                        <Setter Property="Opacity" Value=".35" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SpotifyAuthState.IsSigned}"
+                                Value="true">
+                                <Setter Property="Opacity" Value="1" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+            </StackPanel>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="2">
+            <StackPanel
+                Margin="0 0 10 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center">
+                <Button
+                    Command="{Binding AuthentificateSpotifyCommand}"
+                    Foreground="{StaticResource PrimaryBlueBrush}"
+                    FontSize="14"
+                    Padding="0"
+                    HorizontalAlignment="Right">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TransparentButton}">
+                            <Setter Property="Content" Value="Authentifiziere" />
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryBlueBrush}" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                        Binding="{Binding SpotifyAuthState.IsSigned}"
+                                        Value="true">
+                                    <Setter Property="Foreground" Value="{StaticResource PrimaryGreenBrush}" />
+                                    <Setter Property="Content" Value="{Binding SpotifyAuthState.PlayerInfo.Device.Name}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <TextBlock
+                    TextAlignment="Right"
+                    Foreground="{StaticResource PrimaryBlackBrush}"
+                    Opacity=".35"
+                    FontSize="12">
+                    <Run Text="Spotify Status "/>
+                    <Run Text="{Binding SpotifyAuthState.IsSigned, Converter={StaticResource BoolToAuthStringConverter}, FallbackValue='offline', Mode=OneWay}">
+                        <Run.Style>
+                            <Style TargetType="{x:Type Run}">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryRedBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding SpotifyAuthState.IsSigned}"
+                                        Value="true">
+                                        <Setter Property="Foreground" Value="{StaticResource PrimaryBlueBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Run.Style>
+                    </Run>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

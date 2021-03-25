@@ -24,6 +24,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
         private ICollectionView _loadedItems;
         private ICollectionView _loadedResources;
         private WorkspaceItem _currentSelectedItem;
+        private SpotifyAuthState _spotifyAuthState;
         
         // Dependencies
         private readonly IWorkspaceService _workspaceService;
@@ -52,6 +53,16 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
             { 
                 _currentSelectedItem = value;
                 OnPropertyChanged(nameof(CurrentSelectedItem));
+            }
+        }
+
+        public SpotifyAuthState SpotifyAuthState 
+        {
+            get => _spotifyAuthState;
+            set
+            {
+                _spotifyAuthState = value;
+                OnPropertyChanged(nameof(SpotifyAuthState));
             }
         }
 
@@ -172,11 +183,19 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
 
         public ICommand OpenExportDialogCommand { get => new OpenExportDialogCommand(this, _workspaceService); }
 
+        #region SPOTIFY
+
         public ICommand PauseSpotifyCommand { get => new GeneralCommand(PauseTrack); }
+        
         public ICommand PlaySpotifyCommand { get => new GeneralCommand(PlayTrack); }
+
         public ICommand NextSpotifyCommand { get => new GeneralCommand(NextTrack); }
+        
         public ICommand PreviousSpotifyCommand { get => new GeneralCommand(PreviousTrack); }
+        
         public ICommand AuthentificateSpotifyCommand { get => new GeneralCommand(Authentificate); }
+
+        #endregion
 
         #endregion
 
@@ -199,6 +218,8 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
             LoadedWorkspaces = CollectionViewSource.GetDefaultView(_workspaceService.GetAllWorkspaces());
             LoadedItems = CollectionViewSource.GetDefaultView(_workspaceService.GetAllItems(CurrentWorkspace.WorkspaceId));
             LoadedResources = CollectionViewSource.GetDefaultView(_resourceService.GetAllResourceDirectories());
+
+            SpotifyAuthState = new SpotifyAuthState();
         }
 
         #region UI-Event Handlers
@@ -255,29 +276,64 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
 
         #endregion
 
-        private void Authentificate(object parameter)
+        private async void Authentificate(object parameter)
         {
-            _spotify.Authentificate();   
+            IsBusy = true;
+
+            SpotifyAuthState.Token = await _spotify.Authentificate();
+            if (SpotifyAuthState.Token == null) return;
+
+            SpotifyAuthState.PlayerInfo = _spotify.GetPlayerInfo();
+            SpotifyAuthState.TrackInfo = _spotify.GetCurrentTrackInfo();
+            
+            if (SpotifyAuthState.PlayerInfo == null || SpotifyAuthState.TrackInfo == null)
+            {
+                SpotifyAuthState.Token = null;
+                new DialogWindow(
+                    "Etwas ist schiefgegangen...",
+                    $"Versuchen Sie bitte erneut",
+                    @"/Images/warning.png")
+                    .ShowDialog();
+            }
+            else
+            {
+                new DialogWindow(
+                    "Ihr Konto ist jetzt verbunden!",
+                    $"spielt gerade auf {SpotifyAuthState.PlayerInfo.Device.Name}")
+                    .ShowDialog();
+            }
+
+            IsBusy = false;
         }
 
-        private void PauseTrack(object parameter)
+        private async void PauseTrack(object parameter)
         {
-            _spotify.Pause();
+            if (SpotifyAuthState.IsNotSigned) return;
+
+            SpotifyAuthState.PlayerInfo = await _spotify.Pause();
         }
 
-        private void PlayTrack(object parameter)
+        private async void PlayTrack(object parameter)
         {
-            _spotify.Play();
+            if (SpotifyAuthState.IsNotSigned) return;
+            
+            SpotifyAuthState.PlayerInfo = await _spotify.Play();
         }
 
         private void NextTrack(object parameter)
         {
+            if (SpotifyAuthState.IsNotSigned) return;
+
             _spotify.NextTrack();
+            SpotifyAuthState.TrackInfo = _spotify.GetCurrentTrackInfo();
         }
 
         private void PreviousTrack(object parameter)
         {
+            if (SpotifyAuthState.IsNotSigned) return;
+
             _spotify.PreviousTrack();
+            SpotifyAuthState.TrackInfo = _spotify.GetCurrentTrackInfo();
         }
 
         public void ToggleSpinner()

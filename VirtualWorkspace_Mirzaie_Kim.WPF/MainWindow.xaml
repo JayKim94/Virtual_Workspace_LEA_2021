@@ -15,7 +15,8 @@
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="NoResize"
-        Title="Virtual Workspace" Height="750" Width="950">
+        SizeToContent="WidthAndHeight"
+        Title="Virtual Workspace">
     <WindowChrome.WindowChrome>
             <WindowChrome 
                 CaptionHeight="32"
@@ -72,7 +73,7 @@
                 <ContentControl
                     Grid.Row="1"
                     Content="{Binding Navigator.CurrentViewModel}"
-                    Margin="20 0 20 50"/>
+                    Margin="20 0 20 40"/>
             </Grid>
         </Border>
         <tb:TaskbarIcon Visibility="Hidden" 

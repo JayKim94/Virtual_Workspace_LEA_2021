@@ -7,8 +7,10 @@
              xmlns:local="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Views"
              xmlns:subcontrols="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800" Background="Transparent">
-    <Grid>
+             d:DesignHeight="500" d:DesignWidth="800" Background="Transparent">
+    <Grid
+        Width="800"
+        Height="500">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -20,7 +22,7 @@
             Grid.Row="0"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Margin="60 40 0 0">
+            Margin="40 20 0 0">
             <TextBlock
                 Foreground="{StaticResource PrimaryWhiteBrush}">
                 <Run
@@ -41,10 +43,9 @@
         <StackPanel
             Grid.Row="1"
             Background="{StaticResource PrimaryBlackBrush}"
-            Margin="60">
+            Margin="60 60">
             <!-- HEADER -->
-            <DockPanel
-                Margin="0 0 0 20">
+            <DockPanel>
                 <Button
                     Style="{StaticResource GreenFadeInButton}"
                     Height="25"
@@ -62,6 +63,7 @@
 
             <!-- WORKSPACE LIST -->
             <ItemsControl
+                Margin="5 10 5 0"
                 ItemsSource="{Binding LoadedWorkspaces}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -84,7 +86,8 @@
             Text="bib International College @ 2021"
             Foreground="{StaticResource PrimaryWhiteBrush}"
             FontSize="10"
-            Margin="0 0 0 20"
+            Opacity=".15"
+            Margin="0 0 0 10"
             />
     </Grid>
 </UserControl>

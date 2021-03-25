@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,49 +17,83 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI.Services
     {
         public OAuthToken Token { get; set; }
 
+        public SpotifyPlayerInfo PlayerInfo { get; set; }
+
         public SpotifyControllerService()
         {
         }
 
-        public async void Authentificate()
+        public async Task<OAuthToken> Authentificate()
         {
             using (SpotifyHttpClient client = new SpotifyHttpClient())
             {
                 client.InitializeForLoopbackRequest();
                 string code = await client.GetCodeForAccessToken();
                 Token = client.ExchangeCodeForAccessToken(code);
+
+                return Token;
             }
         }
 
-        public async void Pause()
+        public async Task<SpotifyPlayerInfo> Pause()
         {
-            using (SpotifyHttpClient client = new SpotifyHttpClient())
-            {
-                using (var requestMessage = new HttpRequestMessage(HttpMethod.Put, "https://api.spotify.com/v1/me/player/pause"))
-                {
-                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Token.AccessToken);
-                    var result = await client.SendAsync(requestMessage);
-                }
-            }
+            await SendRequestWithoutResult(HttpMethod.Put, "https://api.spotify.com/v1/me/player/pause");
+
+            return GetPlayerInfo();
         }
 
-        public async void Play()
+        public async Task<SpotifyPlayerInfo> Play()
         {
-            using (SpotifyHttpClient client = new SpotifyHttpClient())
-            {
-                using (var requestMessage = new HttpRequestMessage(HttpMethod.Put, "https://api.spotify.com/v1/me/player/play"))
-                {
-                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Token.AccessToken);
-                    var result = await client.SendAsync(requestMessage);
-                }
-            }
+            await SendRequestWithoutResult(HttpMethod.Put, "https://api.spotify.com/v1/me/player/play");
+
+            return GetPlayerInfo();
         }
 
         public async void NextTrack()
         {
+            await SendRequestWithoutResult(HttpMethod.Post, "https://api.spotify.com/v1/me/player/next");
+        }
+
+        public async void PreviousTrack()
+        {
+            await SendRequestWithoutResult(HttpMethod.Post, "https://api.spotify.com/v1/me/player/previous");
+        }
+
+        public SpotifyPlayerInfo GetPlayerInfo()
+        {
+            try
+            {
+                using (SpotifyHttpClient client = new SpotifyHttpClient())
+                {
+                    return client.GetPlayerInfo(Token.AccessToken);
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public SpotifyTrackInfo GetCurrentTrackInfo()
+        {
+            try
+            {
+                using (SpotifyHttpClient client = new SpotifyHttpClient())
+                {
+                    return client.GetTrackInfo(Token.AccessToken);
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        private async Task SendRequestWithoutResult(HttpMethod method, string uri)
+        {
             using (SpotifyHttpClient client = new SpotifyHttpClient())
             {
-                using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://api.spotify.com/v1/me/player/next"))
+                using (var requestMessage = new HttpRequestMessage(method, uri))
                 {
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Token.AccessToken);
                     var result = await client.SendAsync(requestMessage);
@@ -66,14 +101,21 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI.Services
             }
         }
 
-        public async void PreviousTrack()
+        private async Task<T> SendRequestWithResult<T>(HttpMethod method, string uri)
         {
             using (SpotifyHttpClient client = new SpotifyHttpClient())
             {
-                using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://api.spotify.com/v1/me/player/previous"))
+                using (var requestMessage = new HttpRequestMessage(method, uri))
                 {
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Token.AccessToken);
                     var result = await client.SendAsync(requestMessage);
+
+                    using (var responseStream = result.Content.ReadAsStream())
+                    {
+                        T target = client.Deserialize<T>(responseStream);
+                        
+                        return target;
+                    }
                 }
             }
         }

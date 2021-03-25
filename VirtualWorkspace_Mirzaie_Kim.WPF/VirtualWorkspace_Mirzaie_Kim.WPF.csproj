@@ -52,9 +52,10 @@
     <None Remove="Images\minimize-white.png" />
     <None Remove="Images\minimize.png" />
     <None Remove="Images\OptionBar.png" />
+    <None Remove="Images\pause-button.png" />
     <None Remove="Images\play-button.png" />
     <None Remove="Images\plus.png" />
-    <None Remove="Images\rewind.png" />
+    <None Remove="Images\rewind-button.png" />
     <None Remove="Images\search-white.png" />
     <None Remove="Images\search.png" />
     <None Remove="Images\settings.png" />
@@ -191,6 +192,15 @@
     <Content Include="Images\folder.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\pause-button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\play-button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\rewind-button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\spotify.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -218,13 +228,7 @@
     <Content Include="Images\OptionBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\play-button.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\plus.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\rewind.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\search-white.png">

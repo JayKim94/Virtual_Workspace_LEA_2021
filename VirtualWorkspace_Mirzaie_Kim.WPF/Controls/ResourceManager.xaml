@@ -38,6 +38,7 @@
                 <Label
                     Content="Ressourcen"
                     FontSize="14"
+                    Foreground="{StaticResource PrimaryBlackBrush}"
                     FontWeight="DemiBold"
                     VerticalContentAlignment="Bottom"
                     />

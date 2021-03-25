@@ -9,7 +9,7 @@
              xmlns:states="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.State"
              xmlns:converters="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <Style x:Key="FadeOutOnDialogOpen" TargetType="{x:Type FrameworkElement}">
@@ -37,7 +37,9 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid
+        Height="650"
+        Width="850">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -46,10 +48,10 @@
         <Viewbox 
             StretchDirection="Both" 
             Stretch="Uniform"
-            Width="125"
+            Width="150"
             Panel.ZIndex="100"
             Grid.Row="0" 
-            Grid.RowSpan="2">
+            Grid.RowSpan="3">
             <controls:LoadingSpinner 
                 Style="{StaticResource LoadingSpinnerVisibility}"
                 />

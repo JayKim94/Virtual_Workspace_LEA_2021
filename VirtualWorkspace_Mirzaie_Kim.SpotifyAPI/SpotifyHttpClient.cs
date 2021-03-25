@@ -39,7 +39,9 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI
         public void InitializeForLoopbackRequest()
         {
             CodeVerifier = RandomDataBase64Url(32);
-            Scope = "user-modify-playback-state";
+            Scope = @"user-modify-playback-state"
+                    + "%20user-read-playback-state"
+                    + "%20user-read-currently-playing";
             
             const string codeChallengeMethod = "S256";
             string codeChallenge = Base64UrlEncodeNoPadding(Sha256(CodeVerifier));
@@ -117,21 +119,6 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI
             return TokenRequest(tokenRequestBody);
         }
 
-        public async Task HttpPut(string url, string token)
-        {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, url))
-            {
-                request.Headers.Add("Authorization", "Basic " + token);
-                request.Headers.Remove("Expect");
-                request.Headers.Add("Expect", "");
-                ServicePointManager.ServerCertificateValidationCallback = ((sender, certificate, chain, sslPolicyErrors) => true);
-                using (HttpResponseMessage response = await SendAsync(request))
-                {
-                    response.EnsureSuccessStatusCode();
-                }
-            }
-        }
-
         private OAuthToken TokenRequest(string tokenRequestBody)
         {
             var request = (HttpWebRequest)WebRequest.Create(TokenEndPoint);
@@ -163,28 +150,31 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI
             }
         }
 
-        #region Helpers
-
-        private T Deserialize<T>(string json)
+        public SpotifyPlayerInfo GetPlayerInfo(string token)
         {
-            if (string.IsNullOrWhiteSpace(json))
-                return default(T);
-
-            return Deserialize<T>(Encoding.UTF8.GetBytes(json));
-        }
-
-        private T Deserialize<T>(byte[] json)
-        {
-            if (json == null || json.Length == 0)
-                return default(T);
-
-            using (var ms = new MemoryStream(json))
+            var request = (HttpWebRequest)WebRequest.Create("https://api.spotify.com/v1/me/player");
+            request.Method = "GET";
+            request.Headers.Add(string.Format("Authorization: Bearer {0}", token));
+            var response = request.GetResponse();
+            using (var stream = response.GetResponseStream())
             {
-                return Deserialize<T>(ms);
+                return Deserialize<SpotifyPlayerInfo>(stream);
             }
         }
 
-        private T Deserialize<T>(Stream json)
+        public SpotifyTrackInfo GetTrackInfo(string token)
+        {
+            var request = (HttpWebRequest)WebRequest.Create("https://api.spotify.com/v1/me/player/currently-playing");
+            request.Method = "GET";
+            request.Headers.Add(string.Format("Authorization: Bearer {0}", token));
+            var response = request.GetResponse();
+            using (var stream = response.GetResponseStream())
+            {
+                return Deserialize<SpotifyTrackInfo>(stream);
+            }
+        }
+
+        public T Deserialize<T>(Stream json)
         {
             if (json == null)
                 return default(T);
@@ -192,6 +182,8 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI
             var ser = CreateSerializer(typeof(T));
             return (T)ser.ReadObject(json);
         }
+
+        #region Helpers
 
         private DataContractJsonSerializer CreateSerializer(Type type)
         {

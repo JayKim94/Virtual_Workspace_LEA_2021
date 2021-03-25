@@ -34,6 +34,10 @@
                 </Style.Triggers>
             </Style>
         </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2.5*" />
@@ -56,6 +60,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <!-- HEADER / SEARCH BOX -->
@@ -113,5 +118,9 @@
                 </ItemsControl>
             </Grid>
         </Grid>
+        <local:SpotifyPlayer
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            />
     </Grid>
 </UserControl>

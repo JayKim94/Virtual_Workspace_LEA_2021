@@ -23,5 +23,4 @@ namespace VirtualWorkspace_Mirzaie_Kim.Domain.Models
 
         public DateTime ExpirationDate { get; set; }
     }
-
 }
