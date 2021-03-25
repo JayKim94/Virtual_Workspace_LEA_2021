@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
     public class MinimizeWindowCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
+        
+        
 
         public bool CanExecute(object parameter)
         {
@@ -19,6 +22,8 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
         public void Execute(object parameter)
         {
             // Hier
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;    
+            
         }
     }
 }

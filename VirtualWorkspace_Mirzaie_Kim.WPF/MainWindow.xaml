@@ -54,6 +54,7 @@
                             WindowChrome.IsHitTestVisibleInChrome="True"
                             IconSource="/Images/minimize.png"
                             IconSize="12"
+                            ClickCommand="{Binding MinimizeWindowCommand}"
                             Margin="5" Cursor="Hand"
                             />
                         <subcontrols:IconActionButton
