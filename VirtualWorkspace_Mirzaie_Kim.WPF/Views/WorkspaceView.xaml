@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="VirtualWorkspace_Mirzaie_Kim.WPF.Views.WorkspaceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls"
+             xmlns:subcontrols="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols"
+             xmlns:models="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Models"
+             xmlns:states="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.State"
+             xmlns:converters="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style x:Key="FadeOutOnDialogOpen" TargetType="{x:Type FrameworkElement}">
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding IsDialogOpen}"
+                    Value="True">
+                    <Setter Property="Opacity" Value=".25"/>
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding IsBusy}"
+                    Value="True">
+                    <Setter Property="Opacity" Value=".25"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LoadingSpinnerVisibility" TargetType="{x:Type controls:LoadingSpinner}">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding IsBusy}"
+                    Value="True">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Viewbox 
+            StretchDirection="Both" 
+            Stretch="Uniform"
+            Width="125"
+            Panel.ZIndex="100"
+            Grid.Row="0" 
+            Grid.RowSpan="2">
+            <controls:LoadingSpinner 
+                Style="{StaticResource LoadingSpinnerVisibility}"
+                />
+        </Viewbox>
+
+        <!-- WORKSPACE TITLE BAR-->
+        <DockPanel 
+            Style="{StaticResource FadeOutOnDialogOpen}"
+            Margin="20 10 0 10" 
+            Grid.Row="0">
+            <StackPanel
+                DockPanel.Dock="Right"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+                <!-- WORKSPACE INFO -->
+                <StackPanel Orientation="Horizontal">
+                    <subcontrols:IconActionButton
+                        Margin="100 0 0 0"
+                        IconSource="/Images/switch.png"
+                        IconSize="18"
+                        ClickCommand="{Binding UpdateWorkspaceTabCommand}"
+                        ClickCommandParameter="{x:Static models:WorkspaceTabType.Switch}" Cursor="Hand"
+                        />
+                    <subcontrols:IconActionButton
+                        IconSource="/Images/plus.png"
+                        IconSize="18"
+                        ClickCommand="{Binding CreateNewWorkspaceCommand}" Cursor="Hand"
+                        />
+                </StackPanel>
+            </StackPanel>
+            <!-- WORKSPACE TITLE AREA -->
+            <StackPanel
+                Orientation="Horizontal">
+                <subcontrols:EditableTextBox
+                    CurrentValue="{Binding CurrentWorkspace.WorkspaceName}" 
+                    SubmitCommand="{Binding UpdateWorkspaceNameCommand}"
+                    />
+                <TextBlock
+                    Style="{StaticResource SubTextStyle}">
+                    <Run Text="Aktuelle Workspace ID: " />
+                    <Run Text="{Binding CurrentWorkspace.WorkspaceId,
+                            FallbackValue='null'}"
+                            Foreground="{StaticResource PrimaryBlueBrush}"/>
+                    <Run Text="    " />
+                    <Run Text="Erstellt am: " />
+                    <Run Text="{Binding CurrentWorkspace.CreatedAt,
+                            FallbackValue='null',
+                            StringFormat='{}{0:dd.MM.yy}'}"
+                            Foreground="{StaticResource PrimaryBlueBrush}"/>
+                </TextBlock>
+            </StackPanel>
+        </DockPanel>
+        
+        <!-- WORKSPACE PANELS -->
+        <controls:WorkspacePanel
+            Style="{StaticResource FadeOutOnDialogOpen}"
+            Grid.Row="1"/>
+    </Grid>
+</UserControl>

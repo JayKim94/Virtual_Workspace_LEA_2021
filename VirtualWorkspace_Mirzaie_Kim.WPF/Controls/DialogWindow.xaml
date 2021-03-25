@@ -1,0 +1,66 @@
+﻿<Window x:Class="VirtualWorkspace_Mirzaie_Kim.WPF.Controls.DialogWindow"
+        x:Name="dialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls"
+        mc:Ignorable="d"
+        SizeToContent="WidthAndHeight"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterOwner"
+        Title="Hollow Station">
+    <Grid>
+        <Border
+            Background="{StaticResource PrimaryBlackBrush}"
+            BorderThickness="0"
+            CornerRadius="7">
+            <Grid
+                Margin="30 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Image 
+                    Grid.Row="0"
+                    Source="/Images/checked.png"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Width="75"
+                    Margin="0 10 0 25"
+                    />
+
+                <TextBlock
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center"
+                    Margin="0 0 0 20">
+                    <Run 
+                        Text="{Binding TitleText, ElementName=dialog, FallbackValue='Title Text'}"
+                        Foreground="{StaticResource PrimaryWhiteBrush}"
+                        FontSize="18"
+                        />
+                    <LineBreak />
+                    <Run
+                        Text="{Binding SubtitleText, ElementName=dialog, FallbackValue='Subtitle Text'}"
+                        FontSize="12"
+                        Foreground="{StaticResource PrimaryGreenBrush}"
+                        />
+                </TextBlock>
+
+                <Button
+                    Grid.Row="2"
+                    Style="{StaticResource RoundButton}"
+                    Background="{StaticResource PrimaryBlueBrush}"
+                    Content="Schließen"
+                    Cursor="Hand"
+                    IsCancel="True"
+                    />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

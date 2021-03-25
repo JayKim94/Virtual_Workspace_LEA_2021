@@ -1,0 +1,289 @@
+﻿<Window x:Class="VirtualWorkspace_Mirzaie_Kim.WPF.Controls.ExportDialogWindow"
+        x:Name="exportMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls"
+        xmlns:subcontrols="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols"
+        xmlns:models="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Models"
+        mc:Ignorable="d" 
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <Style x:Key="MenuContainerStyle" TargetType="{x:Type DockPanel}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="20 5" />
+            <Setter Property="Opacity" Value=".55" />
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                To="1"
+                                Duration="0:0:0.1"
+                                Storyboard.TargetProperty="Opacity"
+                                />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                To=".55"
+                                Duration="0:0:0.1"
+                                Storyboard.TargetProperty="Opacity"
+                                />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="MenuTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryWhiteBrush}" />
+            <Setter Property="Margin" Value="10 0 10 0" />
+            <Setter Property="FontFamily" Value="Tahoma" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Style.Triggers>
+                
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ZipTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MenuTextStyle}">
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding SelectedExportOption, ElementName=exportMenu}"
+                    Value="{x:Static models:ExportOptions.Zip}">
+                    <Setter Property="Foreground" Value="{StaticResource PrimaryGreenBrush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="FolderTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MenuTextStyle}">
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding SelectedExportOption, ElementName=exportMenu}"
+                    Value="{x:Static models:ExportOptions.Folder}">
+                    <Setter Property="Foreground" Value="{StaticResource PrimaryGreenBrush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid
+        Height="425"
+        Width="680">
+        <Border
+            BorderThickness="0"
+            CornerRadius="10"
+            Background="{StaticResource PrimaryBlackBrush}"
+            Margin="20">
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="15"
+                    ShadowDepth="3"
+                    Opacity=".55"
+                    />
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid
+                    Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border
+                        Background="{StaticResource PrimaryWhiteBrush}"
+                        BorderThickness="0"
+                        CornerRadius="7"
+                        Margin="20 20 0 0">
+                        <ListView 
+                            x:Name="workspaceItemsView"
+                            Style="{StaticResource CustomListViewStyle}"
+                            ItemsSource="{Binding WorkspaceItemView, ElementName=exportMenu}"
+                            Width="350"
+                            Height="300">
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+                                        <GridViewColumn
+                                            Width="30">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox 
+                                                        IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}" 
+                                                        />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn 
+                                            DisplayMemberBinding="{Binding Name}"
+                                            Width="230"
+                                            Header="Dateiname"
+                                            />
+                                        <GridViewColumn 
+                                            Width="70"
+                                            Header="Typ">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock 
+                                                        Text="{Binding Extension}"
+                                                        Foreground="{StaticResource PrimaryBlueBrush}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Border>
+                    <DockPanel
+                        Grid.Row="1" 
+                        LastChildFill="False"
+                        Margin="20 0 0 15">
+                        <Button
+                            DockPanel.Dock="Left"
+                            Style="{StaticResource RoundButton}"
+                            Background="Transparent"
+                            Content="Alles auswählen"
+                            Click="SelectAll"
+                        />
+                        <Button
+                            DockPanel.Dock="Right"
+                            Style="{StaticResource RoundButton}"
+                            Background="Transparent"
+                            Foreground="{StaticResource PrimaryRedBrush}"
+                            Content="Zurücksetzen"
+                            Click="UnselectAll"
+                            Cursor="Hand"
+                        />
+                    </DockPanel>
+                </Grid>
+                <StackPanel
+                    Grid.Column="1">
+                    <subcontrols:IconActionButton
+                        Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        IconSource="/Images/letter-x-white.png"
+                        IconSize="8" Cursor="Hand"
+                        ClickCommand="{Binding CloseMenuCommand, ElementName=exportMenu}"
+                        Margin="15 10 15 5"
+                        />
+                    <Grid>
+                        <TextBlock
+                            Grid.Column="1"
+                            Text="Export Optionen"
+                            TextAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="9"
+                            Foreground="{StaticResource PrimaryWhiteBrush}"
+                            Opacity=".25"
+                            Margin="0 0 0 5"
+                            />
+                    </Grid>
+                    <Separator Height=".5" Opacity=".25"/>
+                    <Grid
+                        MouseDown="OnExportToZip_Clicked"
+                        Cursor="Hand">
+                        <DockPanel 
+                            Style="{StaticResource MenuContainerStyle}">
+                            <Image 
+                                DockPanel.Dock="Right"
+                                Source="/Images/zip.png"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Width="20"/>
+                            <TextBlock
+                                Style="{StaticResource ZipTextStyle}"
+                                Text="Exportiere zu ZIP"
+                                />
+                        </DockPanel>
+                    </Grid>
+                    <Separator Opacity=".15" />
+                    <Grid
+                        MouseDown="OnExportToFolder_Clicked"
+                        Cursor="Hand">
+                        <DockPanel Style="{StaticResource MenuContainerStyle}">
+                            <Image 
+                                DockPanel.Dock="Right"
+                                Source="/Images/folder.png"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Width="20"/>
+                            <TextBlock
+                                Style="{StaticResource FolderTextStyle}"
+                                Text="Exportiere zu Ordner"
+                                />
+                        </DockPanel>
+                    </Grid>
+                    <Separator Opacity=".15" />
+                    <Grid>
+                        <DockPanel Style="{StaticResource MenuContainerStyle}">
+                            <TextBlock 
+                                DockPanel.Dock="Right"
+                                Text="{Binding ElementName=exportMenu, Path=OutputPath}"
+                                FontSize="12"
+                                Foreground="{StaticResource BrightBlueBrush}"
+                                TextTrimming="CharacterEllipsis"
+                                Width="110"
+                                MouseDown="OnOutputPath_Clicked"
+                                Cursor="Hand"
+                                />
+                            <TextBlock
+                                Style="{StaticResource MenuTextStyle}"
+                                Text="Pfad"
+                                />
+                        </DockPanel>
+                    </Grid>
+                    <Separator Opacity=".15" />
+                    <Grid>
+                        <DockPanel Style="{StaticResource MenuContainerStyle}">
+                            <TextBox 
+                                DockPanel.Dock="Right"
+                                Text="{Binding ElementName=exportMenu, Path=OutputFolderName}"
+                                FontSize="12"
+                                Foreground="{StaticResource PrimaryBlackBrush}"
+                                Background="{StaticResource PrimaryWhiteBrush}"
+                                BorderThickness="0"
+                                Padding="2"
+                                Width="150"
+                                TextAlignment="Right"
+                                />
+                            <TextBlock
+                                Style="{StaticResource MenuTextStyle}"
+                                Text="Name"
+                                />
+                        </DockPanel>
+                    </Grid>
+
+                    <Button
+                        Style="{StaticResource RoundButton}"
+                        Background="{StaticResource PrimaryBlueBrush}"
+                        Foreground="{StaticResource PrimaryWhiteBrush}"
+                        Content="Exportieren"
+                        Margin="20 20 20 0"
+                        Command="{Binding ExportCommand, ElementName=exportMenu}" Cursor="Hand"
+                        />
+                    <Button
+                        Style="{StaticResource RoundButton}"
+                        Background="Transparent"
+                        Foreground="{StaticResource PrimaryWhiteBrush}"
+                        Content="Abbrechen"
+                        Command="{Binding CloseMenuCommand, ElementName=exportMenu}"
+                        Margin="20 0 20 0" Cursor="Hand"
+                        />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

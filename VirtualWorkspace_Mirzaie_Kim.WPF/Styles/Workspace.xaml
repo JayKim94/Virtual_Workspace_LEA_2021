@@ -1,0 +1,97 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Models"
+                    xmlns:subcontrols="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols">
+    <Style x:Key="WorkspaceListStyle" TargetType="{x:Type ItemsControl}">
+        <Setter Property="Margin" Value="5 20 0 0" />
+        <Setter Property="ItemsSource" Value="{Binding LoadedWorkspaces}" />
+        <Setter Property="ItemsControl.ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <DataTemplate.Resources>
+                        <Style x:Key="DataRowStyle" TargetType="Grid">
+                            <Setter Property="Opacity" Value=".25" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation 
+                                To=".8"
+                                Duration="0:0:0.1"
+                                Storyboard.TargetProperty="Opacity"
+                                />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation 
+                                To=".25"
+                                Duration="0:0:0.1"
+                                Storyboard.TargetProperty="Opacity"
+                                />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataTemplate.Resources>
+                    <Grid
+                        Style="{StaticResource DataRowStyle}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            Margin="0 5">
+                            <Button 
+                                Style="{StaticResource TransparentButton}"
+                                Foreground="{StaticResource PrimaryWhiteBrush}"
+                                Content="{Binding WorkspaceName}"
+                                FontSize="12"
+                                Command="{Binding DataContext.SetCurrentWorkspaceCommand, ElementName=workspacelist}"
+                                CommandParameter="{Binding WorkspaceId}"
+                                />
+                        </StackPanel>
+                        <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                Margin="20 0 20 0">
+                            <TextBlock 
+                                    Foreground="{StaticResource PrimaryWhiteBrush}"
+                                    Text="Workspace ID: "
+                                    FontSize="12"
+                                    />
+                            <TextBlock 
+                                    Foreground="{StaticResource PrimaryWhiteBrush}"
+                                    Text="{Binding WorkspaceId}"
+                                    FontSize="12"
+                                    />
+                        </StackPanel>
+                        <Button
+                            Grid.Column="2"
+                            Style="{StaticResource RedFadeInButton}"
+                            Name="btnRemove"
+                            Content="X"
+                            Command="{Binding DataContext.RemoveWorkspaceCommand, ElementName=workspacelist}"
+                            CommandParameter="{Binding WorkspaceId}"
+                            />
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsControl.ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

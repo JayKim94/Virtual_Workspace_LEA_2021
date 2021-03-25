@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="VirtualWorkspace_Mirzaie_Kim.WPF.Controls.ResourceManager"
+             x:Name="resourcesPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls"
+             xmlns:models="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Models"
+             xmlns:subcontrols="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid
+        Margin="15">
+        <Border
+            BorderThickness="1"
+            BorderBrush="{StaticResource SemiBlackBrush}"
+            CornerRadius="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!-- HEADER / ADD BUTTON -->
+            <DockPanel
+                Panel.ZIndex="20"
+                Margin="20 10 0 10"
+                Grid.Row="0">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Right">
+                    <subcontrols:IconActionButton
+                        IconSource="/Images/plus.png"
+                        IconSize="18"
+                        ClickCommand="{Binding OpenDirectoryBrowserCommand}" Cursor="Hand"
+                        Margin="20 10"
+                        />
+                </StackPanel>
+                <Label
+                    Content="Ressourcen"
+                    FontSize="14"
+                    FontWeight="DemiBold"
+                    VerticalContentAlignment="Bottom"
+                    />
+            </DockPanel>
+
+            <!-- RESOURCE DIRECTORIES & CONTEXT-MENU -->
+            <Grid
+                Grid.Row="1"
+                AllowDrop="True"
+                Drop="Handle_Drop"
+                />
+            <Grid
+                x:Name="ResourceDropZone"
+                Grid.Row="1"
+                AllowDrop="True"
+                Drop="Handle_Drop"
+                Opacity="1"
+                Margin="0 0 0 20">
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="PreviewDragEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    To=".35"
+                                    Duration="0:0:0.1"
+                                    Storyboard.TargetProperty="Opacity"
+                                    />
+                                <DoubleAnimation
+                                    To="0.2"
+                                    Duration="0:0:0.2"
+                                    Storyboard.TargetName="DropText"
+                                    Storyboard.TargetProperty="Opacity"
+                                    />
+                                </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="PreviewDragLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    To="1"
+                                    Duration="0:0:0.1"
+                                    Storyboard.TargetProperty="Opacity"
+                                    />
+                                <DoubleAnimation
+                                    To="0"
+                                    Duration="0:0:0.1"
+                                    Storyboard.TargetName="DropText"
+                                    Storyboard.TargetProperty="Opacity"
+                                    />
+                                </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    To="1"
+                                    Duration="0:0:0.1"
+                                    Storyboard.TargetProperty="Opacity"
+                                    />
+                                <DoubleAnimation
+                                    To="0"
+                                    Duration="0:0:0.1"
+                                    Storyboard.TargetName="DropText"
+                                    Storyboard.TargetProperty="Opacity"
+                                    />
+                                </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Grid.Triggers>
+                    <ListView
+                    ItemsSource="{Binding LoadedResources}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    HorizontalAlignment="Center"
+                    AllowDrop="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListView.Resources>
+                            <models:BindingProxy x:Key="proxy" Data="{Binding}" />
+                            <Image x:Key="EyeIcon" Source="/Images/eye.png" />
+                            <Image x:Key="SwapIcon" Source="/Images/swap.png" />
+                            <Image x:Key="TrashIcon" Source="/Images/trash.png" />
+                        </ListView.Resources>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <subcontrols:InteractableItem 
+                                ItemId="{Binding ResourceDirectoryId}" 
+                                ItemName="{Binding Name}"
+                                IconSource="/Images/directory.png"
+                                Path="{Binding Path}">
+                                    <subcontrols:InteractableItem.ContextMenu>
+                                        <ContextMenu Style="{StaticResource ContextMenuStyle}">
+                                            <ContextMenu.Items>
+                                                <MenuItem 
+                                                Header="Resource Information"
+                                                Style="{StaticResource ContextMenuItemStyle}"
+                                                Icon="{StaticResource EyeIcon}"
+                                                />
+                                                <MenuItem 
+                                                Header="Dateien importieren"
+                                                Style="{StaticResource ContextMenuItemStyle}"
+                                                Icon="{StaticResource SwapIcon}"
+                                                Command="{Binding Data.ImportResourceCommand, Source={StaticResource proxy}}"
+                                                CommandParameter="{Binding ResourceDirectoryId}"
+                                                />
+                                                <MenuItem 
+                                                Header="Ressource löschen"
+                                                Style="{StaticResource ContextMenuItemStyle}"
+                                                Icon="{StaticResource TrashIcon}"
+                                                Command="{Binding Data.RemoveResourceCommand, Source={StaticResource proxy}}"
+                                                CommandParameter="{Binding ResourceDirectoryId}"
+                                                />
+                                            </ContextMenu.Items>
+                                        </ContextMenu>
+                                    </subcontrols:InteractableItem.ContextMenu>
+                                </subcontrols:InteractableItem>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Margin" Value="2" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel 
+                                Margin="15 0"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                    <StackPanel
+                        Name="DropText"
+                        VerticalAlignment="Center"
+                        Opacity="0"
+                        AllowDrop="True"
+                        IsHitTestVisible="False">
+                        <Label
+                            HorizontalContentAlignment="Center">
+                            <Image Source="/Images/download.png"
+                                Width="100"
+                                RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Label>
+                        <TextBlock 
+                            VerticalAlignment="Center"
+                            TextAlignment="Center" 
+                            Foreground="{StaticResource PrimaryBlackBrush}"
+                            FontWeight="ExtraBold">
+                            <Run Text="Verzeichnis"
+                                 FontSize="35"
+                                 />
+                            <LineBreak />
+                            <Run Text="ziehen und ablegen"
+                                 FontSize="15"
+                                 />
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+
+    
+</UserControl>
