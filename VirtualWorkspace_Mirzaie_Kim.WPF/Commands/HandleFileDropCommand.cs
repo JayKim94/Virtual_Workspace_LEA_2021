@@ -16,12 +16,12 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private BaseViewModel _viewModel;
+        private WorkspaceViewModel _viewModel;
         private IWorkspaceService _workspaceService;
         private Workspace _workspace;
         private IResourceDirectoryService _resourceDirectoryService;
 
-        public HandleFileDropCommand(BaseViewModel viewModel, Workspace workspace, IWorkspaceService wsService, IResourceDirectoryService rdService)
+        public HandleFileDropCommand(WorkspaceViewModel viewModel, Workspace workspace, IWorkspaceService wsService, IResourceDirectoryService rdService)
         {
             _viewModel = viewModel;
             _workspaceService = wsService;
@@ -38,6 +38,8 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
         {
             if (parameter is string && (string)parameter != string.Empty)
             {
+                _viewModel.ToggleDialogOpened();
+
                 string path = parameter as string;
 
                 // Get file information
@@ -54,7 +56,11 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
                         PathToOriginal = file.FullName,
                         LastAccessed = DateTime.Now
                     });
-                    new DialogWindow("Datei gespeichert!", file.FullName).ShowDialog();
+                    
+                    new DialogWindow(
+                        "Datei hinzugefügt!",
+                        $"{file.Name + file.Extension} aus {file.Directory}")
+                        .ShowDialog();
                 }
                 // Is resource directory
                 else
@@ -65,7 +71,10 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
                         Path = file.FullName,
                         LastAccessed = DateTime.Now
                     });
-                    new DialogWindow("Ressource gespeichert!", file.Name).ShowDialog();
+                    new DialogWindow(
+                        "Ressource hinzugefügt!",
+                        $"{file.Name} aus {file.Directory}")
+                        .ShowDialog();
                 }
 
                 _viewModel.RefreshView();

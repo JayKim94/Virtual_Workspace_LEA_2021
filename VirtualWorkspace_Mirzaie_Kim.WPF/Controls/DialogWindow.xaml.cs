@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VirtualWorkspace_Mirzaie_Kim.WPF.Commands;
 
 namespace VirtualWorkspace_Mirzaie_Kim.WPF.Controls
 {
@@ -37,12 +38,44 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Controls
         public static readonly DependencyProperty TitleTextProperty =
             DependencyProperty.Register("TitleText", typeof(string), typeof(DialogWindow), new PropertyMetadata(null));
 
-        public DialogWindow(string title, string subtitle)
+
+
+        public string IconSource
+        {
+            get { return (string)GetValue(IconSourceProperty); }
+            set { SetValue(IconSourceProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IconSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IconSourceProperty =
+            DependencyProperty.Register("IconSource", typeof(string), typeof(DialogWindow), new PropertyMetadata(null));
+
+        public bool IsYesOrNo
+        {
+            get { return (bool)GetValue(IsYesOrNoProperty); }
+            set { SetValue(IsYesOrNoProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsYesOrNo.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsYesOrNoProperty =
+            DependencyProperty.Register("IsYesOrNo", typeof(bool), typeof(DialogWindow), new PropertyMetadata(false));
+
+        public ICommand DeleteCommand { get => new GeneralCommand(DeleteAndClose); }
+
+        public DialogWindow(string title, string subtitle, string iconSource = "/Images/checked.png", bool isYesOrNo = false)
         {
             Owner = Application.Current.MainWindow;
             InitializeComponent();
             TitleText = title;
             SubtitleText = subtitle;
+            IconSource = iconSource;
+            IsYesOrNo = isYesOrNo;
+        }
+
+        private void DeleteAndClose(object parameter)
+        {
+            DialogResult = true;
+            Close();
         }
     }
 }

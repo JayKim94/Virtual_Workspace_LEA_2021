@@ -33,6 +33,8 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
         {
             using (var dialog = new CommonOpenFileDialog())
             {
+                _viewModel.ToggleDialogOpened();
+                
                 dialog.InitialDirectory = "C:\\";
                 dialog.IsFolderPicker = true;
 
@@ -46,9 +48,9 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
                         Path = path,
                         LastAccessed = DateTime.Now
                     });
-
-                    _viewModel.RefreshView();
                 }
+
+                _viewModel.RefreshView();
             }
         }
     }
