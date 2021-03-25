@@ -11,7 +11,6 @@
     <Color x:Key="PrimaryBlue">#2A5C99</Color>
     <Color x:Key="SubGreen">#5D6E1E</Color>
     <Color x:Key="BrightBlue">#0993f3</Color>
-    <Color x:Key="PrimaryOrange">#ff6400</Color>
 
     <SolidColorBrush x:Key="PrimaryWhiteBrush" Color="{StaticResource PrimaryWhite}"/>
     <SolidColorBrush x:Key="SemiWhiteBrush" Color="{StaticResource PrimaryWhite}" Opacity=".55"/>
