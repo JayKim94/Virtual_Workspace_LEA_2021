@@ -13,9 +13,9 @@ namespace VirtualWorkspace_Mirzaie_Kim.Domain.Services
         SpotifyPlayerInfo GetPlayerInfo();
         SpotifyTrackInfo GetCurrentTrackInfo();
 
-        Task<SpotifyPlayerInfo> Pause();
-        Task<SpotifyPlayerInfo> Play();
-        void NextTrack();
-        void PreviousTrack();
+        SpotifyPlayerInfo Pause();
+        SpotifyPlayerInfo Play();
+        SpotifyTrackInfo NextTrack();
+        SpotifyTrackInfo PreviousTrack();
     }
 }

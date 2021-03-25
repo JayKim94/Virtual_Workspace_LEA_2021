@@ -24,8 +24,9 @@
                 Margin="0 0 0 5"/>
             <TextBlock 
                 Text="{Binding ItemName, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="WrapWithOverflow"
+                TextWrapping="NoWrap"
                 TextTrimming="CharacterEllipsis"
+                Foreground="{Binding ItemForeground, RelativeSource={RelativeSource TemplatedParent}}"
                 />
         </StackPanel>
     </ControlTemplate>

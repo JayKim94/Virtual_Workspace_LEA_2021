@@ -40,7 +40,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2.5*" />
+            <ColumnDefinition Width="1.8*" />
         </Grid.ColumnDefinitions>
         <!-- (TAB: CURRENT) RESOURCE PANEL -->
         <Grid Grid.Column="0">
@@ -56,7 +56,7 @@
         <Grid Grid.Column="1">
             <Grid
                 Style="{StaticResource SwitchTab}"
-                Margin="30">
+                Margin="15">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />

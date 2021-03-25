@@ -137,15 +137,15 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center">
                 <TextBlock
-                    Text="{Binding SpotifyAuthState.TrackInfo.Item.Name, FallbackValue='Spotify nicht verbunden'}"
+                    Text="{Binding SpotifyAuthState.TrackInfo.Item.Name, FallbackValue='Spotify nicht verbunden', Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     TextAlignment="Left"
                     Foreground="{StaticResource PrimaryBlackBrush}"
                     FontSize="16"
                     Margin="0 0 0 3"
                     />
                 <TextBlock
-                    Text="{Binding SpotifyAuthState.PlayerInfo.Device.Name,
-                    FallbackValue='bitte Authentifizieren'}"
+                    Text="{Binding SpotifyAuthState.TrackInfo.Item.Artists[0].Name,
+                    FallbackValue='Künstlername', Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     TextAlignment="Left"
                     Foreground="{StaticResource PrimaryBlackBrush}"
                     Opacity=".75"
@@ -182,7 +182,7 @@
                     />
                 <StackPanel.Style>
                     <Style TargetType="{x:Type StackPanel}">
-                        <Setter Property="Opacity" Value=".35" />
+                        <Setter Property="Opacity" Value=".45" />
                         <Style.Triggers>
                             <DataTrigger
                                 Binding="{Binding SpotifyAuthState.IsSigned}"
@@ -225,7 +225,7 @@
                 <TextBlock
                     TextAlignment="Right"
                     Foreground="{StaticResource PrimaryBlackBrush}"
-                    Opacity=".35"
+                    Opacity=".75"
                     FontSize="12">
                     <Run Text="Spotify Status "/>
                     <Run Text="{Binding SpotifyAuthState.IsSigned, Converter={StaticResource BoolToAuthStringConverter}, FallbackValue='offline', Mode=OneWay}">

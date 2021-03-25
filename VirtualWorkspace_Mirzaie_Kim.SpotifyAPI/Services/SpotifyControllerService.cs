@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using VirtualWorkspace_Mirzaie_Kim.Domain.Models;
 using VirtualWorkspace_Mirzaie_Kim.Domain.Services;
@@ -35,28 +36,32 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI.Services
             }
         }
 
-        public async Task<SpotifyPlayerInfo> Pause()
+        public SpotifyPlayerInfo Pause()
         {
-            await SendRequestWithoutResult(HttpMethod.Put, "https://api.spotify.com/v1/me/player/pause");
-
+            SendRequestWithoutResult(HttpMethod.Put, "https://api.spotify.com/v1/me/player/pause");
+            Thread.Sleep(200);
             return GetPlayerInfo();
         }
 
-        public async Task<SpotifyPlayerInfo> Play()
+        public SpotifyPlayerInfo Play()
         {
-            await SendRequestWithoutResult(HttpMethod.Put, "https://api.spotify.com/v1/me/player/play");
-
+            SendRequestWithoutResult(HttpMethod.Put, "https://api.spotify.com/v1/me/player/play");
+            Thread.Sleep(200);
             return GetPlayerInfo();
         }
 
-        public async void NextTrack()
+        public SpotifyTrackInfo NextTrack()
         {
-            await SendRequestWithoutResult(HttpMethod.Post, "https://api.spotify.com/v1/me/player/next");
+            SendRequestWithoutResult(HttpMethod.Post, "https://api.spotify.com/v1/me/player/next");
+            Thread.Sleep(1000);
+            return GetCurrentTrackInfo();
         }
 
-        public async void PreviousTrack()
+        public SpotifyTrackInfo PreviousTrack()
         {
-            await SendRequestWithoutResult(HttpMethod.Post, "https://api.spotify.com/v1/me/player/previous");
+            SendRequestWithoutResult(HttpMethod.Post, "https://api.spotify.com/v1/me/player/previous");
+            Thread.Sleep(1000);
+            return GetCurrentTrackInfo();
         }
 
         public SpotifyPlayerInfo GetPlayerInfo()
@@ -89,7 +94,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI.Services
             }
         }
 
-        private async Task SendRequestWithoutResult(HttpMethod method, string uri)
+        private async void SendRequestWithoutResult(HttpMethod method, string uri)
         {
             using (SpotifyHttpClient client = new SpotifyHttpClient())
             {

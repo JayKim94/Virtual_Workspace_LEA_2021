@@ -10,11 +10,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid
-        Margin="15">
+        Margin="15 15 5 15">
         <Border
             BorderThickness="1"
             BorderBrush="{StaticResource SemiBlackBrush}"
-            CornerRadius="5">
+            CornerRadius="7">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -32,7 +32,7 @@
                         IconSource="/Images/plus.png"
                         IconSize="18"
                         ClickCommand="{Binding OpenDirectoryBrowserCommand}" Cursor="Hand"
-                        Margin="20 10"
+                        Margin="20 0"
                         />
                 </StackPanel>
                 <Label
@@ -126,10 +126,10 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <subcontrols:InteractableItem 
-                                ItemId="{Binding ResourceDirectoryId}" 
-                                ItemName="{Binding Name}"
-                                IconSource="/Images/directory.png"
-                                Path="{Binding Path}">
+                                    ItemId="{Binding ResourceDirectoryId}" 
+                                    ItemName="{Binding Name}"
+                                    IconSource="/Images/directory.png"
+                                    Path="{Binding Path}">
                                     <subcontrols:InteractableItem.ContextMenu>
                                         <ContextMenu Style="{StaticResource ContextMenuStyle}">
                                             <ContextMenu.Items>
@@ -185,7 +185,7 @@
                         <TextBlock 
                             VerticalAlignment="Center"
                             TextAlignment="Center" 
-                            Foreground="{StaticResource PrimaryBlackBrush}"
+                            Foreground="{StaticResource PrimaryWhiteBrush}"
                             FontWeight="ExtraBold">
                             <Run Text="Verzeichnis"
                                  FontSize="35"

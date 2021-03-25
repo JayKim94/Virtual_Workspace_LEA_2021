@@ -277,7 +277,7 @@
             Grid.Row="2">
             <Border
                 Background="{StaticResource PrimaryBlackBrush}"
-                Opacity=".9"
+                Opacity=".55"
                 BorderThickness="0"
                 CornerRadius="7">
                 <Border.Triggers>
@@ -296,7 +296,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation
-                                    To=".9"
+                                    To=".55"
                                     Duration="0:0:0.1"
                                     Storyboard.TargetProperty="Opacity"
                                     />
@@ -324,7 +324,7 @@
                             Content="File Name" />
                         <TextBlock 
                             Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.Name, FallbackValue='--'}" />
+                            Text="{Binding CurrentSelectedItem.Name, FallbackValue='-'}" />
                     </DockPanel>
                     <DockPanel 
                         Grid.Row="1"
@@ -335,7 +335,7 @@
                         <TextBlock 
                             TextTrimming="CharacterEllipsis"
                             Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.PathToOriginal, FallbackValue='--'}" />
+                            Text="{Binding CurrentSelectedItem.PathToOriginal, FallbackValue='-'}" />
                     </DockPanel>
                     <DockPanel 
                         Grid.Row="2"
@@ -345,7 +345,7 @@
                             Content="Last Accessed" />
                         <TextBlock 
                             Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.LastAccessed, FallbackValue='--'}" />
+                            Text="{Binding CurrentSelectedItem.LastAccessed, FallbackValue='-'}" />
                     </DockPanel>
 
                     <DockPanel 
@@ -357,7 +357,7 @@
                             />
                         <TextBlock 
                             Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.Extension, FallbackValue='--'}" 
+                            Text="{Binding CurrentSelectedItem.Extension, FallbackValue='-'}" 
                             />
                     </DockPanel>
                     <DockPanel 
@@ -369,7 +369,7 @@
                             />
                         <TextBlock 
                             Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.WorkspaceItemId, FallbackValue='--'}" 
+                            Text="{Binding CurrentSelectedItem.WorkspaceItemId, FallbackValue='-'}" 
                             />
                     </DockPanel>
                 </Grid>

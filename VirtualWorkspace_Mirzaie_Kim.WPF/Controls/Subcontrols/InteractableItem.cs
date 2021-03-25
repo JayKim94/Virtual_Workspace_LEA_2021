@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols
 {
@@ -56,6 +57,16 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols
 
         public static readonly DependencyProperty IconWidthProperty =
             DependencyProperty.Register("IconWidth", typeof(int), typeof(InteractableItem), new PropertyMetadata(25));
+
+        public SolidColorBrush ItemForeground
+        {
+            get { return (SolidColorBrush)GetValue(ItemForegroundProperty); }
+            set { SetValue(ItemForegroundProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ItemForeground.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ItemForegroundProperty =
+            DependencyProperty.Register("ItemForeground", typeof(SolidColorBrush), typeof(InteractableItem), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
 
         /// <summary>
         /// Every interactable will start the process on double-click.

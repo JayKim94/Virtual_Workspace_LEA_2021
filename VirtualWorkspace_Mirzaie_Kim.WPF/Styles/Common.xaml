@@ -16,7 +16,7 @@
     <SolidColorBrush x:Key="PrimaryWhiteBrush" Color="{StaticResource PrimaryWhite}"/>
     <SolidColorBrush x:Key="SemiWhiteBrush" Color="{StaticResource PrimaryWhite}" Opacity=".55"/>
     <SolidColorBrush x:Key="PrimaryBlackBrush" Color="{StaticResource PrimaryBlack}"/>
-    <SolidColorBrush x:Key="SemiBlackBrush" Color="{StaticResource PrimaryBlack}" Opacity=".75"/>
+    <SolidColorBrush x:Key="SemiBlackBrush" Color="{StaticResource PrimaryBlack}" Opacity=".35"/>
     <SolidColorBrush x:Key="PlatinumBrush"     Color="{StaticResource Platinum}"/>
     <SolidColorBrush x:Key="PrimaryRedBrush"   Color="{StaticResource PrimaryRed}"/>
     <SolidColorBrush x:Key="PrimaryGreenBrush" Color="{StaticResource PrimaryGreen}"/>

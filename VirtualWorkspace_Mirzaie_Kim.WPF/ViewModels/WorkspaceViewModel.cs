@@ -25,7 +25,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
         private ICollectionView _loadedResources;
         private WorkspaceItem _currentSelectedItem;
         private SpotifyAuthState _spotifyAuthState;
-        
+
         // Dependencies
         private readonly IWorkspaceService _workspaceService;
         private readonly IResourceDirectoryService _resourceService;
@@ -306,34 +306,36 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
             IsBusy = false;
         }
 
-        private async void PauseTrack(object parameter)
+        private void PauseTrack(object parameter)
         {
             if (SpotifyAuthState.IsNotSigned) return;
 
-            SpotifyAuthState.PlayerInfo = await _spotify.Pause();
+            SpotifyPlayerInfo info = _spotify.Pause();
+            SpotifyAuthState.PlayerInfo = info;
         }
 
-        private async void PlayTrack(object parameter)
+        private void PlayTrack(object parameter)
         {
             if (SpotifyAuthState.IsNotSigned) return;
-            
-            SpotifyAuthState.PlayerInfo = await _spotify.Play();
+
+            SpotifyPlayerInfo info = _spotify.Play();
+            SpotifyAuthState.PlayerInfo = info;
         }
 
         private void NextTrack(object parameter)
         {
             if (SpotifyAuthState.IsNotSigned) return;
 
-            _spotify.NextTrack();
-            SpotifyAuthState.TrackInfo = _spotify.GetCurrentTrackInfo();
+            SpotifyTrackInfo info = _spotify.NextTrack();
+            SpotifyAuthState.TrackInfo = info;
         }
 
         private void PreviousTrack(object parameter)
         {
             if (SpotifyAuthState.IsNotSigned) return;
 
-            _spotify.PreviousTrack();
-            SpotifyAuthState.TrackInfo = _spotify.GetCurrentTrackInfo();
+            SpotifyTrackInfo info = _spotify.PreviousTrack();
+            SpotifyAuthState.TrackInfo = info;
         }
 
         public void ToggleSpinner()
