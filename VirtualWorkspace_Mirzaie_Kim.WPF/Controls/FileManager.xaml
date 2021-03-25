@@ -17,20 +17,53 @@
             <Setter Property="Width" Value="75" />
             <Setter Property="Padding" Value="20 10" />
         </Style>
+        
         <Style x:Key="FileInfoText" TargetType="{x:Type TextBlock}">
             <Setter Property="Padding" Value="10 10 20 0" />
             <Setter Property="Foreground" Value="{StaticResource PrimaryWhiteBrush}" />
             <Setter Property="DockPanel.Dock" Value="Right" />
             <Setter Property="TextAlignment" Value="Right" />
         </Style>
+        
         <Style x:Key="FileInfoLabel" TargetType="{x:Type Label}">
             <Setter Property="Padding" Value="20 10" />
             <Setter Property="Foreground" Value="{StaticResource PrimaryWhiteBrush}" />
             <Setter Property="Opacity" Value=".55" />
         </Style>
+        
         <Style TargetType="{x:Type Image}">
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
         </Style>
+        
+        <Style x:Key="FadeInButton" TargetType="{x:Type Button}" BasedOn="{StaticResource TransparentButton}">
+            <Setter Property="Opacity" Value=".75" />
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                To="1"
+                                Duration="0:0:0.15"
+                                Storyboard.TargetProperty="Opacity"
+                                />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                To=".75"
+                                Duration="0:0:0.15"
+                                Storyboard.TargetProperty="Opacity"
+                                />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                              
+            </Style.Triggers>    
+        </Style>
+        
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
 
@@ -71,48 +104,26 @@
                            Margin="8 0"
                            HorizontalAlignment="Left" />
                 </Grid>
+            </Grid>
+            <StackPanel
+                Grid.Column="1"
+                Orientation="Horizontal">
                 <Button
-                    Style="{StaticResource TransparentButton}"
-                    Grid.Column="1"
+                    Style="{StaticResource FadeInButton}"
+                    Command="{Binding OpenFileBrowserCommand}"
+                    Content="+ Vom Computer" Cursor="Hand"
+                    />
+                <Button
+                    Style="{StaticResource FadeInButton}"
                     HorizontalAlignment="Left"
                     Margin="10 0 0 0"
-                    Content="Exportieren*"
+                    Content="Exportieren"
                     Foreground="{StaticResource BrightBlueBrush}"
                     Click="OpenExportDialog_Clicked"
                     Command="{Binding OpenExportDialogCommand}"
                     CommandParameter="{Binding CurrentWorkspace.WorkspaceId}" Cursor="Hand"
                     />
-            </Grid>
-            <Button
-                Grid.Column="1"
-                Style="{StaticResource TransparentButton}"
-                Content="+ Neue Datei hinzufügen" Cursor="Hand">
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation
-                                    To="{StaticResource PrimaryGreen}"
-                                    Duration="0:0:0.3"
-                                    Storyboard.TargetProperty="Foreground.Color"
-                                    />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation
-                                    To="{StaticResource PrimaryBlack}"
-                                    Duration="0:0:0.3"
-                                    Storyboard.TargetProperty="Foreground.Color"
-                                    />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
-                
+            </StackPanel>
         </Grid>
         
         <!-- WORKSPACE ITEM / DROP-ZONE -->
@@ -266,7 +277,7 @@
             Grid.Row="2">
             <Border
                 Background="{StaticResource PrimaryBlackBrush}"
-                Opacity=".85"
+                Opacity=".9"
                 BorderThickness="0"
                 CornerRadius="7">
                 <Border.Triggers>
@@ -285,7 +296,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation
-                                    To=".85"
+                                    To=".9"
                                     Duration="0:0:0.1"
                                     Storyboard.TargetProperty="Opacity"
                                     />
