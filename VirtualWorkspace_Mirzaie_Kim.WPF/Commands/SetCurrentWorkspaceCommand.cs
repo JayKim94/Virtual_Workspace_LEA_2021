@@ -39,17 +39,12 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
         {
             if (parameter is int && (int)parameter >= 0)
             {
-                Workspace workspace = _service.GetWorkspace((int)parameter);
-                
-                if (App.CurrentWorkspace == null || App.CurrentWorkspace.WorkspaceId != workspace.WorkspaceId)
-                {
-                    App.CurrentWorkspace = workspace;
-                }
+                App.CurrentWorkspace = _service.GetWorkspace((int)parameter);
 
                 if (_viewModel != null)
                 {
-                    _viewModel.CurrentWorkspace = workspace;
                     _viewModel.CurrentTab = WorkspaceTabType.Current;
+                    _viewModel.RefreshView();
                 }
                 
                 _navigator.UpdateViewModelCommand.Execute(ViewType.Workspaces);

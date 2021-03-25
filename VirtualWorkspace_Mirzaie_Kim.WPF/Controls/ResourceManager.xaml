@@ -113,7 +113,6 @@
                     ItemsSource="{Binding LoadedResources}"
                     Background="Transparent"
                     BorderThickness="0"
-                    HorizontalAlignment="Center"
                     AllowDrop="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto">

@@ -14,7 +14,6 @@
     <None Remove="Images\document.png" />
     <None Remove="images\down-arrow.png" />
     <None Remove="Images\download.png" />
-    <None Remove="images\DropDownMenu.png" />
     <None Remove="Images\edit.png" />
     <None Remove="Images\Extension\avi.png" />
     <None Remove="Images\Extension\bmp.png" />
@@ -62,6 +61,7 @@
     <None Remove="Images\switch.png" />
     <None Remove="images\toFolder.png" />
     <None Remove="Images\trash.png" />
+    <None Remove="Images\warning.png" />
     <None Remove="images\zip.png" />
   </ItemGroup>
 
@@ -90,9 +90,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\download.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="images\DropDownMenu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\edit.png">
@@ -186,6 +183,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\warning.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="images\zip.png">

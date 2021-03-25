@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualWorkspace_Mirzaie_Ki
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualWorkspace_Mirzaie_Kim.SpotifyAPI", "VirtualWorkspace_Mirzaie_Kim.SpotifyAPI\VirtualWorkspace_Mirzaie_Kim.SpotifyAPI.csproj", "{CAD2D8FC-6389-4C22-AA30-E6DFCF0DA5DC}"
 EndProject
-Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "VirtualWorkspace_Mirzaie_Kim.Installer", "VirtualWorkspace_Mirzaie_Kim.Installer\VirtualWorkspace_Mirzaie_Kim.Installer.aiproj", "{30C878EB-D3AE-43DD-A946-2D5A8B4F3878}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		All|Any CPU = All|Any CPU
@@ -44,12 +42,6 @@ Global
 		{CAD2D8FC-6389-4C22-AA30-E6DFCF0DA5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAD2D8FC-6389-4C22-AA30-E6DFCF0DA5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAD2D8FC-6389-4C22-AA30-E6DFCF0DA5DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30C878EB-D3AE-43DD-A946-2D5A8B4F3878}.All|Any CPU.ActiveCfg = All
-		{30C878EB-D3AE-43DD-A946-2D5A8B4F3878}.All|Any CPU.Build.0 = All
-		{30C878EB-D3AE-43DD-A946-2D5A8B4F3878}.Debug|Any CPU.ActiveCfg = All
-		{30C878EB-D3AE-43DD-A946-2D5A8B4F3878}.Debug|Any CPU.Build.0 = All
-		{30C878EB-D3AE-43DD-A946-2D5A8B4F3878}.Release|Any CPU.ActiveCfg = All
-		{30C878EB-D3AE-43DD-A946-2D5A8B4F3878}.Release|Any CPU.Build.0 = All
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

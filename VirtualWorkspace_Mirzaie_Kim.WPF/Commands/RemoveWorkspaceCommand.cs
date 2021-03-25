@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using VirtualWorkspace_Mirzaie_Kim.Domain.Services;
+using VirtualWorkspace_Mirzaie_Kim.WPF.Controls;
 using VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels;
 
 namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
@@ -29,12 +30,15 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
         {
             if (parameter is int && (int)parameter >= 0)
             {
+                if (new DialogWindow(
+                    "Wollen Sie das Verzeichnis entfernen?",
+                    $"{App.CurrentWorkspace.WorkspaceName}",
+                    "/Images/warning.png",
+                    true).ShowDialog() != true) return;
+
                 _service.DeleteWorkspace((int)parameter);
                 
-                if (_viewModel != null)
-                {
-                    _viewModel.RefreshView();
-                }
+                _viewModel.RefreshView();
             }
         }
     }

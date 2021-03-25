@@ -69,6 +69,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
                     _outputPath = dialog.OutputPath;
                     _option = dialog.SelectedExportOption;
 
+                    // Export
                     _viewModel.ToggleSpinner();
                     worker.RunWorkerAsync();
                 }
@@ -78,8 +79,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             if (_items.Count == 0) return;
-            
-            // ExportOptions.Folder
+
             if (_option == ExportOptions.Folder)
             {
                 string path = Path.Combine(_outputPath, _outputFolderName);
@@ -103,8 +103,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
                     File.Copy(item.PathToOriginal, itemPath, true);
                 }
             }
-            // ExportOptions.Zip
-            else
+            else if (_option == ExportOptions.Zip)
             {
                 string zipPath = Path.Combine(_outputPath, _outputFolderName + @".zip");
                 

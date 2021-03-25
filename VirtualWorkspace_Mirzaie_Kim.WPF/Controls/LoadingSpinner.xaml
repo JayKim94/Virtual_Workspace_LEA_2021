@@ -122,10 +122,11 @@
                                     <Ellipse Width="39.5" Height="39.5" Canvas.Left="8.75" Canvas.Top="8" Visibility="Hidden"/>
                                 </Canvas>
                                 <Label 
-                                    Content="Wir zippen noch..." 
+                                    Content="der Vorgang wird bearbeitet..." 
                                     Margin="0 110 0 0"
                                     Foreground="{StaticResource PrimaryBlackBrush}"
-                                    FontSize="14"
+                                    Opacity=".75"
+                                    FontSize="12"
                                     HorizontalAlignment="Center" 
                                     VerticalAlignment="Center"/>
                             </Grid>
