@@ -44,14 +44,16 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
 
         #endregion
 
-        public HomeViewModel(IWorkspaceService workspaceService, INavigator navigator)
+        public HomeViewModel(
+            IWorkspaceService workspaceService, 
+            INavigator navigator)
         {
             _workspaceService = workspaceService;
             _navigator = navigator;
 
             LoadedWorkspaces = CollectionViewSource.GetDefaultView(_workspaceService.GetAllWorkspaces());
         }
-
+        
         public override void RefreshView()
         {
             LoadedWorkspaces.Refresh();

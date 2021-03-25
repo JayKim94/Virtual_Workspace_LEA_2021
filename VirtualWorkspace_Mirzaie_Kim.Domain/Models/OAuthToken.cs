@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI.Models
+namespace VirtualWorkspace_Mirzaie_Kim.Domain.Models
 {
     [DataContract]
     public class OAuthToken
@@ -17,6 +17,9 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI.Models
 
         [DataMember(Name = "refresh_token")]
         public string RefreshToken { get; set; }
+
+        [DataMember]
+        public string Scopes { get; set; }
 
         public DateTime ExpirationDate { get; set; }
     }

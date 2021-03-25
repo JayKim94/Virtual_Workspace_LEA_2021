@@ -11,6 +11,7 @@ using VirtualWorkspace_Mirzaie_Kim.Domain.Models;
 using VirtualWorkspace_Mirzaie_Kim.Domain.Services;
 using VirtualWorkspace_Mirzaie_Kim.EntityFramework.Services;
 using VirtualWorkspace_Mirzaie_Kim.SpotifyAPI;
+using VirtualWorkspace_Mirzaie_Kim.SpotifyAPI.Services;
 using VirtualWorkspace_Mirzaie_Kim.WPF.State;
 using VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels;
 
@@ -37,10 +38,6 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF
                 .Build();
 
             ServiceProvider = _host.Services;
-
-            string clientId = ConfigurationManager.AppSettings.Get("spotifyClientId");
-            string clientSecret = ConfigurationManager.AppSettings.Get("spotifyClientSecret");
-            new SpotifyHttpClient(clientId, clientSecret);
         }
 
         private void RegisterServices(IServiceCollection services)
@@ -51,11 +48,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<WorkspaceViewModel>();
 
-            string clientId = ConfigurationManager.AppSettings.Get("spotifyClientId");
-            string clientSecret = ConfigurationManager.AppSettings.Get("spotifyClientSecret");
-            services.AddSingleton<SpotifyHttpClientFactory>(new SpotifyHttpClientFactory(clientId, clientSecret));
-
-            
+            services.AddSingleton<ISpotifyControllerService, SpotifyControllerService>();
 
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<IWorkspaceService, WorkspaceService>();

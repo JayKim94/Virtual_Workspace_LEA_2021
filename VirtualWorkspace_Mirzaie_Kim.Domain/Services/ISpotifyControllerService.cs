@@ -8,5 +8,11 @@ namespace VirtualWorkspace_Mirzaie_Kim.Domain.Services
 {
     public interface ISpotifyControllerService
     {
+        void Authentificate();
+
+        void Pause();
+        void Play();
+        void NextTrack();
+        void PreviousTrack();
     }
 }

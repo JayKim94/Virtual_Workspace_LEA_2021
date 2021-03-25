@@ -29,6 +29,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
         private readonly IWorkspaceService _workspaceService;
         private readonly IResourceDirectoryService _resourceService;
         private readonly INavigator _navigator;
+        private readonly ISpotifyControllerService _spotify;
 
         #endregion
 
@@ -171,17 +172,25 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
 
         public ICommand OpenExportDialogCommand { get => new OpenExportDialogCommand(this, _workspaceService); }
 
+        public ICommand PauseSpotifyCommand { get => new GeneralCommand(PauseTrack); }
+        public ICommand PlaySpotifyCommand { get => new GeneralCommand(PlayTrack); }
+        public ICommand NextSpotifyCommand { get => new GeneralCommand(NextTrack); }
+        public ICommand PreviousSpotifyCommand { get => new GeneralCommand(PreviousTrack); }
+        public ICommand AuthentificateSpotifyCommand { get => new GeneralCommand(Authentificate); }
+
         #endregion
 
         public WorkspaceViewModel(
             IWorkspaceService workspaceService,
             IResourceDirectoryService resourceService,
-            INavigator navigator)
+            INavigator navigator,
+            ISpotifyControllerService spotify)
         {
             // Get services
             _navigator = navigator;
             _workspaceService = workspaceService;
             _resourceService = resourceService;
+            _spotify = spotify;
 
             if (App.CurrentWorkspace == null) throw new Exception();
             // Loads data and builds the view
@@ -245,6 +254,31 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
         }
 
         #endregion
+
+        private void Authentificate(object parameter)
+        {
+            _spotify.Authentificate();   
+        }
+
+        private void PauseTrack(object parameter)
+        {
+            _spotify.Pause();
+        }
+
+        private void PlayTrack(object parameter)
+        {
+            _spotify.Play();
+        }
+
+        private void NextTrack(object parameter)
+        {
+            _spotify.NextTrack();
+        }
+
+        private void PreviousTrack(object parameter)
+        {
+            _spotify.PreviousTrack();
+        }
 
         public void ToggleSpinner()
         {
