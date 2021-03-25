@@ -10,6 +10,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
         public INavigator Navigator { get; private set; }
 
         public ICommand CloseApplicationCommand { get => new GeneralCommand(CloseApplication); }
+        public ICommand MinimizeWindowCommand { get => new MinimizeWindowCommand(); }
 
         /// <summary>
         /// MainViewModel manages the navigation and the content-control.
@@ -29,5 +30,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
         {
             throw new System.NotImplementedException();
         }
+
+        
     }
 }
