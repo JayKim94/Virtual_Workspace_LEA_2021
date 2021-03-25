@@ -7,6 +7,7 @@
         xmlns:controls="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls"
         xmlns:subcontrols="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.Controls.Subcontrols"
         xmlns:state="clr-namespace:VirtualWorkspace_Mirzaie_Kim.WPF.State"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         WindowState="Normal"
         WindowStyle="None"
@@ -74,5 +75,8 @@
                     Margin="20 0 20 50"/>
             </Grid>
         </Border>
+        <tb:TaskbarIcon Visibility="Hidden" 
+                        ToolTipText="Hollow Station">
+        </tb:TaskbarIcon>
     </Grid>
 </Window>

@@ -24,6 +24,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
             // Hier
             Application.Current.MainWindow.WindowState = WindowState.Minimized;    
             
+            
         }
     }
 }
