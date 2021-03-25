@@ -18,15 +18,13 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
 
         private WorkspaceViewModel _viewModel;
         private IWorkspaceService _workspaceService;
-        private Workspace _workspace;
         private IResourceDirectoryService _resourceDirectoryService;
 
-        public HandleFileDropCommand(WorkspaceViewModel viewModel, Workspace workspace, IWorkspaceService wsService, IResourceDirectoryService rdService)
+        public HandleFileDropCommand(WorkspaceViewModel viewModel, IWorkspaceService wsService, IResourceDirectoryService rdService)
         {
             _viewModel = viewModel;
             _workspaceService = wsService;
             _resourceDirectoryService = rdService;
-            _workspace = workspace;
         }
         
         public bool CanExecute(object parameter)
@@ -50,7 +48,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
                 {
                     _workspaceService.AddItem(new WorkspaceItem()
                     {
-                        WorkspaceId = _workspace.WorkspaceId,
+                        WorkspaceId = App.CurrentWorkspace.WorkspaceId,
                         Name = Path.GetFileNameWithoutExtension(path),
                         Extension = file.Extension,
                         PathToOriginal = file.FullName,

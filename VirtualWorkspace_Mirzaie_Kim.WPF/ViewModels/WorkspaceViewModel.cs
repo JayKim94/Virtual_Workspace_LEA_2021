@@ -149,7 +149,9 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
 
         public ICommand RemoveWorkspaceItemCommand { get => new RemoveWorkspaceItemCommand(this, _workspaceService); }
         
-        public ICommand HandleFileDropCommand { get => new HandleFileDropCommand(this, CurrentWorkspace, _workspaceService, _resourceService); }
+        public ICommand HandleFileDropCommand { get => new HandleFileDropCommand(this, _workspaceService, _resourceService); }
+
+        public ICommand OpenFileBrowserCommand { get => new OpenFileBrowserCommand(this, _workspaceService); }
 
         #endregion
 
