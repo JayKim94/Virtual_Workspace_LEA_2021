@@ -66,15 +66,20 @@ namespace VirtualWorkspace_Mirzaie_Kim.SpotifyAPI
             listener.Prefixes.Add(RedirectUri);
             listener.Start();
 
-            new Process
+            var authProcess = new Process
             {
                 StartInfo = new ProcessStartInfo(AuthorizationRequestUri)
                 {
                     UseShellExecute = true
                 }
-            }.Start();
+            };
+
+            authProcess.Start();
 
             var context = await listener.GetContextAsync();
+
+            authProcess.CloseMainWindow();
+            authProcess.Close();
 
             string html = string.Format("<html><body></body></html>");
             var buffer = Encoding.UTF8.GetBytes(html);

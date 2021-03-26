@@ -126,9 +126,9 @@
         Height="45"
         Margin="10 20 10 0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
         <Grid
             Grid.Column="0">
@@ -140,7 +140,7 @@
                     Text="{Binding SpotifyAuthState.TrackInfo.Item.Name, FallbackValue='Spotify nicht verbunden', Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     TextAlignment="Left"
                     Foreground="{StaticResource PrimaryBlackBrush}"
-                    FontSize="16"
+                    FontSize="18"
                     Margin="0 0 0 3"
                     />
                 <TextBlock
@@ -209,7 +209,7 @@
                     HorizontalAlignment="Right">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TransparentButton}">
-                            <Setter Property="Content" Value="Authentifiziere" />
+                            <Setter Property="Content" Value="Konto verbinden" />
                             <Setter Property="Foreground" Value="{StaticResource PrimaryBlueBrush}" />
                             <Style.Triggers>
                                 <DataTrigger
