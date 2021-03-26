@@ -1,16 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using VirtualWorkspace_Mirzaie_Kim.Domain.Models;
 using VirtualWorkspace_Mirzaie_Kim.Domain.Services;
 using VirtualWorkspace_Mirzaie_Kim.EntityFramework.Services;
-using VirtualWorkspace_Mirzaie_Kim.SpotifyAPI;
 using VirtualWorkspace_Mirzaie_Kim.SpotifyAPI.Services;
 using VirtualWorkspace_Mirzaie_Kim.WPF.State;
 using VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels;

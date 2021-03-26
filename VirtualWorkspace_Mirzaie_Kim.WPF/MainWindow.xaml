@@ -16,7 +16,7 @@
         Background="Transparent"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
-        Title="Virtual Workspace">
+        Title="Holostation">
     <WindowChrome.WindowChrome>
             <WindowChrome 
                 CaptionHeight="32"

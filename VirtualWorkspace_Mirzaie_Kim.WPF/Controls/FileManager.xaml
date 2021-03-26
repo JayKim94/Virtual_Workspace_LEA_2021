@@ -217,10 +217,6 @@
                                                   Style="{StaticResource ContextMenuItemStyle}"
                                                   Icon="{StaticResource EyeIcon}"
                                                   />
-                                        <MenuItem Header="Datei verschieben"
-                                                  Style="{StaticResource ContextMenuItemStyle}"
-                                                  Icon="{StaticResource SwapIcon}"
-                                                  />
                                         <MenuItem Header="Datei löschen"
                                                   Style="{StaticResource ContextMenuItemStyle}"
                                                   Icon="{StaticResource TrashIcon}"

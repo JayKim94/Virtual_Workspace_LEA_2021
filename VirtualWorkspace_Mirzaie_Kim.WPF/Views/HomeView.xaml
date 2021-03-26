@@ -26,7 +26,7 @@
             <TextBlock
                 Foreground="{StaticResource PrimaryWhiteBrush}">
                 <Run
-                    Text="Hollow Station 2021"
+                    Text="Holostation 2021"
                     FontSize="52"
                     FontWeight="DemiBold"
                     />

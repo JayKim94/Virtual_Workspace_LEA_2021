@@ -145,7 +145,7 @@
                     />
                 <TextBlock
                     Text="{Binding SpotifyAuthState.TrackInfo.Item.Artists[0].Name,
-                    FallbackValue='Künstlername', Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    FallbackValue='Authentifizierung benötigt', Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     TextAlignment="Left"
                     Foreground="{StaticResource PrimaryBlackBrush}"
                     Opacity=".75"
@@ -168,7 +168,7 @@
                     x:Name="btnPlay"
                     Style="{StaticResource PlayButtonStyle}"
                     Click="OnPlay_Clicked"
-                    Command="{Binding PlaySpotifyCommand}"
+                    Command="{Binding PlaySpotifyCommand}" Cursor="Hand"
                     />
                 <Button 
                     x:Name="btnPause"
