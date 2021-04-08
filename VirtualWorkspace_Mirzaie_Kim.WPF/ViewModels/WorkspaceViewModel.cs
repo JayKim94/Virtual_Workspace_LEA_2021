@@ -183,6 +183,8 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
 
         public ICommand OpenExportDialogCommand { get => new OpenExportDialogCommand(this, _workspaceService); }
 
+        public ICommand OpenFileInfoCommand { get => new GeneralCommand(OpenFileInfo); }
+
         #region SPOTIFY
 
         public ICommand PauseSpotifyCommand { get => new GeneralCommand(PauseTrack); }
@@ -336,6 +338,11 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.ViewModels
 
             SpotifyTrackInfo info = _spotify.PreviousTrack();
             SpotifyAuthState.TrackInfo = info;
+        }
+
+        private void OpenFileInfo(object parameter)
+        {
+            new FileInfoWindow(CurrentSelectedItem).ShowDialog();
         }
 
         public void ToggleSpinner()

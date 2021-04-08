@@ -12,7 +12,7 @@ namespace VirtualWorkspace_Mirzaie_Kim.WPF.Commands
         }
 
         private Action<object> _action;
-        private Predicate<object> _canExecute;
+        private Predicate<object> _canExecute = null;
 
         public GeneralCommand(Action<object> action, Predicate<object> canExecute)
         {

@@ -216,6 +216,7 @@
                                         <MenuItem Header="Datei Information"
                                                   Style="{StaticResource ContextMenuItemStyle}"
                                                   Icon="{StaticResource EyeIcon}"
+                                                  Command="{Binding Data.OpenFileInfoCommand, Source={StaticResource proxy}}"
                                                   />
                                         <MenuItem Header="Datei löschen"
                                                   Style="{StaticResource ContextMenuItemStyle}"
@@ -266,110 +267,6 @@
                          />
                 </TextBlock>
             </StackPanel>
-        </Grid>
-        
-        <!-- ITEM INFOMATION BAR -->
-        <Grid
-            Grid.Row="2">
-            <Border
-                Background="{StaticResource PrimaryBlackBrush}"
-                Opacity=".55"
-                BorderThickness="0"
-                CornerRadius="7">
-                <Border.Triggers>
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                    To="1"
-                                    Duration="0:0:0.1"
-                                    Storyboard.TargetProperty="Opacity"
-                                    />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                    To=".55"
-                                    Duration="0:0:0.1"
-                                    Storyboard.TargetProperty="Opacity"
-                                    />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Border.Triggers>
-                <Grid
-                    Margin="10 5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <DockPanel 
-                        Grid.Row="0"
-                        Grid.Column="0">
-                        <Label 
-                            Style="{StaticResource FileInfoLabel}"
-                            Content="File Name" />
-                        <TextBlock 
-                            Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.Name, FallbackValue='-'}" />
-                    </DockPanel>
-                    <DockPanel 
-                        Grid.Row="1"
-                        Grid.Column="0">
-                        <Label 
-                            Style="{StaticResource FileInfoLabel}"
-                            Content="Full Path" />
-                        <TextBlock 
-                            TextTrimming="CharacterEllipsis"
-                            Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.PathToOriginal, FallbackValue='-'}" />
-                    </DockPanel>
-                    <DockPanel 
-                        Grid.Row="2"
-                        Grid.Column="0">
-                        <Label 
-                            Style="{StaticResource FileInfoLabel}"
-                            Content="Last Accessed" />
-                        <TextBlock 
-                            Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.LastAccessed, FallbackValue='-'}" />
-                    </DockPanel>
-
-                    <DockPanel 
-                        Grid.Row="0"
-                        Grid.Column="1" >
-                        <Label 
-                            Style="{StaticResource FileInfoLabel}"
-                            Content="File Type" 
-                            />
-                        <TextBlock 
-                            Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.Extension, FallbackValue='-'}" 
-                            />
-                    </DockPanel>
-                    <DockPanel 
-                        Grid.Row="1"
-                        Grid.Column="1" >
-                        <Label 
-                            Style="{StaticResource FileInfoLabel}"
-                            Content="Workspace Item Id" 
-                            />
-                        <TextBlock 
-                            Style="{StaticResource FileInfoText}"
-                            Text="{Binding CurrentSelectedItem.WorkspaceItemId, FallbackValue='-'}" 
-                            />
-                    </DockPanel>
-                </Grid>
-            </Border>
         </Grid>
     </Grid>
 </UserControl>
